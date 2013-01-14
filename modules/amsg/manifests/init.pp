@@ -8,6 +8,7 @@ class amsg inherits amsg::params {
     provider => rpm,
     ensure   => present,
     source   => "${amsg_rpm_source}",
+	require  => Package["${compat_libstdc_package}"],
   }
 
   exec { 'chown_amx_home':
