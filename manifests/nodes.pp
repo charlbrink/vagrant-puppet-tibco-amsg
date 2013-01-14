@@ -26,13 +26,6 @@ node default {
     content => template('wgetrc.erb'),
   }
 
-  # update the (outdated) packages
-  exec { 'update-packages':
-    command => 'sudo yum update',
-    path    => '/usr/bin',
-    require => File['/etc/yum.conf'],
-  }
-  
   # Install "Desktop" group - mandatory
   $desktop_mandatory_packages = [ 'NetworkManager', 'NetworkManager-gnome', 'alsa-plugins-pulseaudio', 'at-spi',
               'control-center', 'dbus', 'gdm', 'gdm-user-switch-applet', 'gnome-panel', 'gnome-power-manager',
