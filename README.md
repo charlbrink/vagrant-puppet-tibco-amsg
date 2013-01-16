@@ -23,6 +23,7 @@ Verify the configuration:
 * Set your proxy settings in manifests/nodes.pp or remove if not required
 * Verify modules/amsg/manifests/params.pp
 * Verify modules/ems/manifests/params.pp
+* You may also need to set the OS environment variable HTTP_PROXY to http://${proxy_username}:${proxy_password}@${proxy.server}:${proxy_port} replacing variables with your actual values. This is used for downloading the vagrant box.
 
 ## Create Tibco RPMs
 
@@ -33,6 +34,8 @@ TIBCO Enterprise Message Service (EMS) was installed in another TIBCO_HOME (/hom
 Using [FPM](https://github.com/jordansissel/fpm/wiki) one can easily create rpms as follows:
 *fpm -s dir -t rpm -n "amsg" -v 3.2.0 /home/vagrant/amsg_home /home/vagrant/amsg_data to create the file amsg-3.2.0-1.x86_64.rpm and
 *fpm -s dir -t rpm -n "ems" -v 6.3 /home/vagrant/ems_home /home/vagrant/ems_data to create the file ems-6.3-1.x86_64.rpm
+
+FPM requires package rpm-build to be installed (sudo yum install rpm-build) to build an rpm.
 
 Overwrite the provided modules/amsg/files/amsg-3.2.0-1.x86_64.rpm and modules/ems/files/ems-6.3-1.x86_64.rpm files
 
