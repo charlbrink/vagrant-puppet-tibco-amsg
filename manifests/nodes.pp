@@ -7,9 +7,9 @@ node default {
   $PROXY_PORT = '81'                      #Change to proxy port
   $PROXY_URL = "${PROXY_PROTOCOL}://${PROXY_USER}:${PROXY_PASSWORD}@${PROXY_HOST}:${PROXY_PORT}"
   
-  notify { 'proxy_setting':
-    message => "Using following settings for PROXY: url=${PROXY_URL}",
-  }
+#  notify { 'proxy_setting':
+#    message => "Using following settings for PROXY: url=${PROXY_URL}",
+#  }
   
   file { '/home/vagrant/.bash_profile' :
     path    => '/home/vagrant/.bash_profile',
@@ -24,6 +24,11 @@ node default {
   file { '/etc/wgetrc' :
     path    => '/etc/wgetrc',
     content => template('wgetrc.erb'),
+  }
+
+  file { '/etc/hosts' :
+    path    => '/etc/hosts',
+    content => template('hosts.erb'),
   }
 
   # Install "Desktop" group - mandatory
@@ -56,7 +61,7 @@ node default {
 #  }
 
   # Install extra convenience packages
-  $extra_packages = [ 'subversion', 'gedit', 'man' ]
+  $extra_packages = [ 'subversion', 'gedit', 'man', 'file-roller', 'unzip' ]
   package { $extra_packages:
     ensure  => present,
     require => File['/etc/yum.conf'],
